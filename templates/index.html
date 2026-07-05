@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>雅思作文批改 | 简化版 Grammarly + IELTS</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="brand">
+          <div class="brand-title">IELTS Writing Grader</div>
+          <div class="brand-sub">简化版 Grammarly + 雅思批改系统（本地可运行）</div>
+        </div>
+        <div class="badge">Flask · REST API · Vanilla JS</div>
+      </header>
+
+      <main class="grid">
+        <section class="card">
+          <h2 class="card-title">作文输入</h2>
+          <div class="form">
+            <label class="label">
+              <span>作文标题</span>
+              <input id="titleInput" class="input" placeholder="例如：Some people think ... To what extent do you agree?" />
+            </label>
+            <label class="label">
+              <span>作文正文</span>
+              <textarea
+                id="textInput"
+                class="textarea"
+                rows="10"
+                placeholder="粘贴你的 Task 2 作文正文（建议 250+ 词）"
+              ></textarea>
+            </label>
+            <div class="actions">
+              <button id="submitBtn" class="btn primary">开始批改</button>
+              <button id="fillExampleBtn" class="btn">填入示例</button>
+              <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <div>正在分析中…</div>
+              </div>
+            </div>
+            <div id="errorBox" class="error hidden"></div>
+          </div>
+        </section>
+
+        <section class="card" id="resultCard">
+          <div class="card-head">
+            <h2 class="card-title">评分与反馈</h2>
+            <div class="meta">
+              <div id="statsBox" class="stats"></div>
+            </div>
+          </div>
+          <div id="scoreGrid" class="score-grid"></div>
+        </section>
+
+        <section class="card" id="revisedCard">
+          <h2 id="essayAnnoTitle" class="essay-annotation-title">原文纠错</h2>
+          <div class="annotation-legend">
+            <div class="legend-item"><span class="err-spelling">speling</span>&nbsp;<span class="corr-spelling">(spelling)</span> 拼写错误</div>
+            <div class="legend-item"><span class="err-delete">redundant</span> 冗余删除</div>
+            <div class="legend-item"><span class="err-missing" data-missing="s">verb</span> 语法补全</div>
+            <div class="legend-item"><span class="err-collocation">unnatural</span>&nbsp;<span class="corr-collocation">(better phrase)</span> 搭配优化</div>
+          </div>
+          <div id="revisedEssayBox" class="essay-annotation-body">（提交后显示 AI 批改结果）</div>
+        </section>
+
+        <section class="card" id="notesCard">
+          <h2 class="card-title">修改说明</h2>
+          <ul id="revisionNotesBox" class="list"></ul>
+        </section>
+
+        <section class="card" id="sentCard">
+          <div class="card-head" style="flex-direction: column; align-items: flex-start;">
+            <h2 class="card-title">Essay Annotation — 句子级纠错</h2>
+            <div class="annotation-legend">
+              <div class="legend-item"><span class="err-spelling">speling</span>&nbsp;<span class="corr-spelling">(spelling)</span> 拼写错误</div>
+              <div class="legend-item"><span class="err-delete">redundant</span> 冗余删除</div>
+              <div class="legend-item"><span class="err-missing" data-missing="s">verb</span> 语法补全</div>
+              <div class="legend-item"><span class="err-collocation">unnatural</span>&nbsp;<span class="corr-collocation">(better phrase)</span> 搭配优化</div>
+            </div>
+          </div>
+          <div id="sentenceList" class="sentence-list"></div>
+          <div class="export">
+            <div class="export-head">
+              <h3 class="sub-title">导出最终作文</h3>
+              <div class="export-actions">
+                <button id="rebuildBtn" class="btn">生成导出内容</button>
+                <button id="downloadBtn" class="btn primary">下载 .txt</button>
+              </div>
+            </div>
+            <textarea id="exportBox" class="textarea" rows="8" placeholder="这里会生成最终修改后的作文"></textarea>
+          </div>
+        </section>
+
+        <section class="card" id="recCard">
+          <h2 class="card-title">高分表达推荐</h2>
+          <div id="recBox" class="rec-box"></div>
+        </section>
+
+        <section class="card" id="ideaCard">
+          <h2 class="card-title">写作思路（标题驱动）</h2>
+          <div id="ideaBox" class="idea-box"></div>
+        </section>
+
+        <section class="card" id="modelCard">
+          <h2 class="card-title">同主题范文（Band 7+）</h2>
+          <pre id="modelBox" class="pre"></pre>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div>提示：当前项目内置了可运行的“规则引擎”版评分/纠错；你可以在后端替换为 call_openai() 的真实大模型结果。</div>
+      </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
+  </body>
+</html>

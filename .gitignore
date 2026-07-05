@@ -1,0 +1,13 @@
+# 环境配置
+.env
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# Cursor / VS Code
+.cursor/
+.vscode/
+
+# macOS
+.DS_Store
